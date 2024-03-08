@@ -1,10 +1,12 @@
 const $canvasSpriteDisplay = document.getElementById("sprite-display");
 const $formConfiguration = document.getElementById("configure-sprite");
+const $canvasTitle = document.getElementById("canvas-title");
 
 const CANVAS_WIDTH = 512;
 const CANVAS_HEIGHT = 512;
 $canvasSpriteDisplay.width = CANVAS_WIDTH;
 $canvasSpriteDisplay.height = CANVAS_HEIGHT
+$canvasTitle.style.width = CANVAS_WIDTH;
 
 let context = $canvasSpriteDisplay.getContext('2d');
 let sprite;
@@ -16,8 +18,11 @@ function renderSprite() {
 }
 
 function showImage(event) {
-	var file = event.target.files[0];
-	var reader = new FileReader();
+	let file = event.target.files[0];
+	
+	if (!file) return;
+
+	let reader = new FileReader();
 	reader.onload = function (event) {
 		sprite = new Sprite({
 			src: event.target.result,
@@ -31,18 +36,18 @@ function showImage(event) {
 }
 
 function initializeInput() {
-	var inputFile = document.getElementById("input-sprite");
+	let inputFile = document.getElementById("input-sprite");
 	inputFile.addEventListener("change", showImage);
 }
 
-async function recibirForm(e) {
-	e.preventDefault();
+async function recibirForm(event) {
+	event.preventDefault();
 
 	if (sprite === undefined) return alert("No sprite selected");
 
-	await sprite.stopAnimation()
+	await sprite.stopAnimation();
 	
-	const elements = e.target.elements;
+	const elements = event.target.elements;
 	
 	sprite.width = Number(elements["sprite-size"].value);
 	sprite.height = Number(elements["sprite-size"].value);
@@ -54,7 +59,7 @@ async function recibirForm(e) {
 	sprite.sy = (Number(elements["sprite-frame-row"].value) - 1) * sprite.sHeight;
 	sprite.animate = elements["can-animate"].checked;
 	
-	sprite.setFrame(sprite.frameStart, sprite.sy);
+	sprite.setFrame(sprite.frameStart);
 	
 	if (sprite.animate) sprite.setAnimation();
 }
@@ -63,9 +68,8 @@ async function timeOut(timeInMiliseconds) {
 	await new Promise(resolve => setTimeout(resolve, timeInMiliseconds));
 }
 
-Sprite.prototype.setFrame = function(sx, sy) {
+Sprite.prototype.setFrame = function(sx) {
 	this.sx = sx * this.sWidth;
-	this.sy = sy * this.sHeight;
 
 	renderSprite();
 }
@@ -85,7 +89,7 @@ Sprite.prototype.stopAnimation = async function() {
 		}, 100);
 	})
 
-	this.setFrame(this.frameStart, this.sy);
+	this.setFrame(this.frameStart);
 }
 
 Sprite.prototype.setAnimation = async function() {
@@ -94,7 +98,7 @@ Sprite.prototype.setAnimation = async function() {
 	this.animationEnded = false;
 	const FRAME_DURATION_MSEC =  1000 / this.frameSpeed;
 	
-	this.setFrame(this.frameStart, this.sy);
+	this.setFrame(this.frameStart);
 	await timeOut(FRAME_DURATION_MSEC);
 	
 	for (let i = 1; i < this.frameEnd; i++) {

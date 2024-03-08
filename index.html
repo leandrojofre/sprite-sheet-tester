@@ -3,14 +3,16 @@
 <head>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Page Title</title>
+	<title>Spritesheet Tester</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
 <body>
 	<section id="section-canvas">
-		<p>Canvas</p>
-		<canvas id="sprite-display"></canvas>
+		<div style="display: flex; flex-direction: column; gap: 0px;">
+			<p id="canvas-title">Canvas</p>
+			<canvas id="sprite-display"></canvas>
+		</div>
 
 		<div>
 			<input type="file" id="input-sprite" accept="image/png, image/jpeg">
@@ -22,7 +24,7 @@
 				<input class="config-input" type="number" id="sprite-frame-rate" step=".0" min="0" max="512" placeholder="Frame rate">
 				<input class="config-input" type="number" id="sprite-frame-start" step=".0" min="0" max="512" placeholder="Start frame">
 				<input class="config-input" type="number" id="sprite-frame-end" step=".0" min="0" max="512" placeholder="End frame">
-				<input class="config-input" type="number" id="sprite-frame-row" step=".0" min="0" max="512" placeholder="Row">
+				<input class="config-input" type="number" id="sprite-frame-row" step=".0" min="0" max="512" placeholder="Row number">
 				<label class="config-input" for="can-animate">
 					Animate sprite
 					<input type="checkbox" id="can-animate">

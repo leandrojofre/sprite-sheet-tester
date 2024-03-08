@@ -21,7 +21,7 @@ html {
 
 body {
 	background-color: #a07a52;
-	padding: 2px;
+	padding: 4px;
 	user-select: none;
 	display: flex;
 	justify-content: center;
@@ -59,7 +59,7 @@ form {
 	grid-auto-columns: 1fr;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
-	gap: 2px;
+	gap: 4px;
 	grid-template-areas:
 		". . . ."
 		". . . .";
@@ -111,9 +111,15 @@ input[type=submit] {
 }
 
 #label-input-sprite {
-	background-color: #eadbac;
+	background-color: #c8a279;
 	border: 5px solid #473524;
 	width: -webkit-fill-available;
 	display: flex;
 	justify-content: center;
+}
+
+#canvas-title {
+	text-align: center;
+	background-color: #473524;
+	-webkit-text-fill-color: #eadbac;
 }
