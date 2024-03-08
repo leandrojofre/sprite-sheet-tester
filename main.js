@@ -9,7 +9,7 @@ $canvasSpriteDisplay.width = CANVAS_WIDTH;
 $canvasSpriteDisplay.height = CANVAS_HEIGHT
 $canvasTitle.style.width = CANVAS_WIDTH;
 
-let context = $canvasSpriteDisplay.getContext('2d');
+let context = $canvasSpriteDisplay.getContext("2d");
 let sprite;
 let animationID;
 
@@ -118,15 +118,58 @@ function inputNumberScroll(e) {
 	let inputValueVariation = 1;
 	
 	if (KEY_PRESSED.shift) inputValueVariation = 5;
+	if (KEY_PRESSED.shift && KEY_PRESSED.alt) inputValueVariation = 10;
 	if (deltaY > 0) inputValueVariation *= -1;
-
+	
 	const finalValue = Number(input.value) + inputValueVariation;
-	input.value = finalValue;
+
+	if (finalValue >= input.max) return input.value = input.max;
+	if (finalValue <= input.min) return input.value = input.min;
+	return input.value = finalValue;
 }
 
 document.querySelectorAll(".input-number").forEach(input => 
 	input.addEventListener("wheel", inputNumberScroll)
 );
+
+document.querySelectorAll(".info-button").forEach(button =>
+	button.addEventListener("mouseover", (e) => {
+		const target = e.target;
+		const brotherElementsOfTarget = Array.from(target.parentNode.parentNode.children);
+		const infoBox = brotherElementsOfTarget.find(element => element.className === "info");
+
+		infoBox.style.display = "block";
+		infoBox.style.width = "200px";
+		infoBox.style.height = "min-content";
+		infoBox.style.overflowY = "scroll";
+		infoBox.style.left = `${target.offsetLeft}px`;
+		infoBox.style.top = `${target.offsetTop - infoBox.offsetHeight}px`;
+	})
+);
+
+document.querySelectorAll(".info-button").forEach(button =>
+	button.addEventListener("mouseout", (e) => {
+		const target = e.target;
+		const brotherElementsOfTarget = Array.from(target.parentNode.parentNode.children);
+		const infoBox = brotherElementsOfTarget.find(element => element.className === "info");
+
+		infoBox.style.display = "none";
+	})
+);
+
+document.getElementById("sprite-frame-size").addEventListener("wheel", e => {
+	// Maximum canvas width/height resolution in chrome: 32,767px.
+	const MAX_CAVAS_RESOLUTION = 32767;
+	const MAX_NUM_OF_ROWS = Math.floor(MAX_CAVAS_RESOLUTION / e.target.value);
+
+	document.querySelectorAll(".max-frame-count").forEach(element =>
+		element.innerHTML = `, the maximum number is ${MAX_NUM_OF_ROWS}`
+	);
+
+	document.getElementById("sprite-frame-start").max = MAX_NUM_OF_ROWS;
+	document.getElementById("sprite-frame-end").max = MAX_NUM_OF_ROWS;
+	document.getElementById("sprite-frame-row").max = MAX_NUM_OF_ROWS;
+})
 
 function keyDown(e) {
 	KEY_PRESSED[e.key.toLocaleLowerCase()] = true;

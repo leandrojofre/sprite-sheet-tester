@@ -93,9 +93,29 @@ input[type=submit] {
 }
 
 .input-title {
+	display: flex;
 	text-align: center;
+	justify-content: space-between;
+	padding: 0px 8px;
 	background-color: #473524;
 	-webkit-text-fill-color: #eadbac;
+
+	& .info-button {
+		border: 0;
+		width: min-content;
+		background-color: #473524;	
+		align-self: flex-end;
+		-webkit-text-fill-color: #a07a52;
+		cursor: help;
+		padding: 0px 4px;
+	}
+}
+
+.info {
+	position: fixed;
+	background-color: #eadbac;
+	border: 5px solid #473524;
+	padding: 4px;
 }
 
 #section-canvas {
@@ -202,4 +222,17 @@ form {
 	& * {
 		width: -webkit-fill-available;;
 	}
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #a07a52;
 }
