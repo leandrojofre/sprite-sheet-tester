@@ -4,6 +4,7 @@ const $canvasTitle = document.getElementById("canvas-title");
 
 const CANVAS_WIDTH = 512;
 const CANVAS_HEIGHT = 512;
+const KEY_PRESSED = {};
 $canvasSpriteDisplay.width = CANVAS_WIDTH;
 $canvasSpriteDisplay.height = CANVAS_HEIGHT
 $canvasTitle.style.width = CANVAS_WIDTH;
@@ -40,7 +41,7 @@ function initializeInput() {
 	inputFile.addEventListener("change", showImage);
 }
 
-async function recibirForm(event) {
+async function receiveForm(event) {
 	event.preventDefault();
 
 	if (sprite === undefined) return alert("No sprite selected");
@@ -101,7 +102,7 @@ Sprite.prototype.setAnimation = async function() {
 	this.setFrame(this.frameStart);
 	await timeOut(FRAME_DURATION_MSEC);
 	
-	for (let i = 1; i < this.frameEnd; i++) {
+	for (let i = this.frameStart + 1; i < this.frameEnd; i++) {
 		this.nextFrame();
 		await timeOut(FRAME_DURATION_MSEC);
 	}
@@ -109,5 +110,32 @@ Sprite.prototype.setAnimation = async function() {
 	this.setAnimation();
 }
 
-$formConfiguration.addEventListener("submit", recibirForm);
-window.addEventListener('load', initializeInput);
+$formConfiguration.addEventListener("submit", receiveForm);
+
+function inputNumberScroll(e) {
+	const deltaY = e.deltaY;
+	const input = e.target;
+	let inputValueVariation = 1;
+	
+	if (KEY_PRESSED.shift) inputValueVariation = 5;
+	if (deltaY > 0) inputValueVariation *= -1;
+
+	const finalValue = Number(input.value) + inputValueVariation;
+	input.value = finalValue;
+}
+
+document.querySelectorAll(".input-number").forEach(input => 
+	input.addEventListener("wheel", inputNumberScroll)
+);
+
+function keyDown(e) {
+	KEY_PRESSED[e.key.toLocaleLowerCase()] = true;
+}
+
+function keyUp(e) {
+	KEY_PRESSED[e.key.toLocaleLowerCase()] = false;
+}
+
+window.addEventListener("load", initializeInput);
+window.addEventListener("keydown", keyDown);
+window.addEventListener("keyup", keyUp);

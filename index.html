@@ -13,23 +13,51 @@
 			<p id="canvas-title">Canvas</p>
 			<canvas id="sprite-display"></canvas>
 		</div>
-
+		
 		<div>
 			<input type="file" id="input-sprite" accept="image/png, image/jpeg">
 			<label for="input-sprite" id="label-input-sprite"><p>UPLOAD SPRITESHEET</p></label>
 			
 			<form id="configure-sprite">
-				<input class="config-input" type="number" id="sprite-size" step=".0" min="0" max="512" placeholder="Sprite size">
-				<input class="config-input" type="number" id="sprite-frame-size" step=".0" min="0" max="512" placeholder="Frame size">
-				<input class="config-input" type="number" id="sprite-frame-rate" step=".0" min="0" max="512" placeholder="Frame rate">
-				<input class="config-input" type="number" id="sprite-frame-start" step=".0" min="0" max="512" placeholder="Start frame">
-				<input class="config-input" type="number" id="sprite-frame-end" step=".0" min="0" max="512" placeholder="End frame">
-				<input class="config-input" type="number" id="sprite-frame-row" step=".0" min="0" max="512" placeholder="Row number">
-				<label class="config-input" for="can-animate">
-					Animate sprite
-					<input type="checkbox" id="can-animate">
-				</label>
-				<input class="config-input" type="submit" value="CONFIRM">
+				<div class="a">
+					<label class="config-input" for="can-animate">
+						Animate sprite
+						<input type="checkbox" id="can-animate">
+					</label>
+					
+					<input class="config-input" type="submit" value="CONFIRM">
+				</div>
+				
+				<div class="b">
+					<p class="input-title">Sprite size</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-size" step=".0" min="0" max="512">
+				</div>
+				
+				<div class="c">
+					<p class="input-title">Frame size</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-frame-size" step=".0" min="0" max="512">
+				</div>
+				
+				<div class="d">
+					<p class="input-title">Frame rate</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-frame-rate" step=".0" min="0" max="512">
+				</div>
+				
+				<div class="e">
+					<p class="input-title">Start frame</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-frame-start" step=".0" min="0" max="512">
+				</div>
+				
+				<div class="f">
+					<p class="input-title">End frame</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-frame-end" step=".0" min="0" max="512">
+				</div>
+				
+				<div class="g">
+					<p class="input-title">Row number</p>
+					<input class="config-input input-number" type="number" value="0" id="sprite-frame-row" step=".0" min="0" max="512">
+				</div>
+
 			</form>
 		</div>
 	</section>
