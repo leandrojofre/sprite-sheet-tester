@@ -112,24 +112,45 @@ Sprite.prototype.setAnimation = async function() {
 
 $formConfiguration.addEventListener("submit", receiveForm);
 
-function inputNumberScroll(e) {
+function setInputNumberValue(e) {
+	e.preventDefault();
 	const deltaY = e.deltaY;
 	const input = e.target;
+
 	let inputValueVariation = 1;
+	let symbol = 1;
 	
 	if (KEY_PRESSED.shift) inputValueVariation = 5;
 	if (KEY_PRESSED.shift && KEY_PRESSED.alt) inputValueVariation = 10;
-	if (deltaY > 0) inputValueVariation *= -1;
+	if (deltaY > 0) symbol = -1;
 	
-	const finalValue = Number(input.value) + inputValueVariation;
+	const finalValue = Number(input.value) + (inputValueVariation * symbol);
 
-	if (finalValue >= input.max) return input.value = input.max;
-	if (finalValue <= input.min) return input.value = input.min;
-	return input.value = finalValue;
+		if (finalValue >= input.max) return input.value = input.max;
+	else if (finalValue <= input.min) return input.value = input.min;
+	else return input.value = finalValue;
+}
+
+function setMaxNumberOfRows(inputValue) {
+	// Maximum canvas width/height resolution in chrome: 32,767px.
+	const MAX_CAVAS_RESOLUTION = 32767;
+	const MAX_NUM_OF_ROWS = Math.floor(MAX_CAVAS_RESOLUTION / inputValue);
+
+	document.querySelectorAll(".max-frame-count").forEach(element =>
+		element.innerHTML = `, the maximum number is ${MAX_NUM_OF_ROWS}`
+	);
+
+	document.getElementById("sprite-frame-start").max = MAX_NUM_OF_ROWS;
+	document.getElementById("sprite-frame-end").max = MAX_NUM_OF_ROWS;
+	document.getElementById("sprite-frame-row").max = MAX_NUM_OF_ROWS;
 }
 
 document.querySelectorAll(".input-number").forEach(input => 
-	input.addEventListener("wheel", inputNumberScroll)
+	input.addEventListener("wheel", (e) => {
+		if (e.target.id === "sprite-frame-size")
+			return setMaxNumberOfRows(setInputNumberValue(e));
+		else setInputNumberValue(e);
+	})
 );
 
 document.querySelectorAll(".info-button").forEach(button =>
@@ -156,20 +177,6 @@ document.querySelectorAll(".info-button").forEach(button =>
 		infoBox.style.display = "none";
 	})
 );
-
-document.getElementById("sprite-frame-size").addEventListener("wheel", e => {
-	// Maximum canvas width/height resolution in chrome: 32,767px.
-	const MAX_CAVAS_RESOLUTION = 32767;
-	const MAX_NUM_OF_ROWS = Math.floor(MAX_CAVAS_RESOLUTION / e.target.value);
-
-	document.querySelectorAll(".max-frame-count").forEach(element =>
-		element.innerHTML = `, the maximum number is ${MAX_NUM_OF_ROWS}`
-	);
-
-	document.getElementById("sprite-frame-start").max = MAX_NUM_OF_ROWS;
-	document.getElementById("sprite-frame-end").max = MAX_NUM_OF_ROWS;
-	document.getElementById("sprite-frame-row").max = MAX_NUM_OF_ROWS;
-})
 
 function keyDown(e) {
 	KEY_PRESSED[e.key.toLocaleLowerCase()] = true;
