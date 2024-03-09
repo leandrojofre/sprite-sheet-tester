@@ -20,12 +20,30 @@ html {
 }
 
 body {
-	background-color: #a07a52;
-	padding: 4px;
-	user-select: none;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
+
+	gap: 4px;
+	padding: 4px;
+	image-rendering: pixelated;
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	background-color: #a07a52;
 	-webkit-text-fill-color: #473524;
+	user-select: none;
+
+	& > * {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	& script {
+		display: none;
+	}
 }
 
 div {
@@ -103,7 +121,7 @@ input[type=submit] {
 	& .info-button {
 		border: 0;
 		width: min-content;
-		background-color: #473524;	
+		background-color: #473524;
 		align-self: flex-end;
 		-webkit-text-fill-color: #a07a52;
 		cursor: help;
@@ -118,11 +136,13 @@ input[type=submit] {
 	padding: 4px;
 }
 
-#section-canvas {
+.history-item {
 	display: flex;
+	width: 128px;
+	height: 128px;
+	overflow: hidden;
+	clip-path: content-box;
 	flex-direction: column;
-	align-items: center;
-	gap: 4px;
 }
 
 #label-input-sprite {
@@ -137,6 +157,16 @@ input[type=submit] {
 	text-align: center;
 	background-color: #473524;
 	-webkit-text-fill-color: #eadbac;
+}
+
+#history-items {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 4px;
+	gap: 4px;
+	background-color: #c8a279;
+	border: 5px solid #473524;
+	flex-direction: row-reverse;
 }
 
 form {
@@ -229,10 +259,10 @@ form {
 	height: 8px;
 }
 
-::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0);
+& ::-webkit-scrollbar-track {
+	background-color: #a07a52;
 }
 
-::-webkit-scrollbar-thumb {
-	background-color: #a07a52;
+& ::-webkit-scrollbar-thumb {
+	background-color: #473524;
 }

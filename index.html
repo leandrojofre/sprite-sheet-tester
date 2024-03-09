@@ -14,100 +14,106 @@
 			<canvas id="sprite-display"></canvas>
 		</div>
 		
-		<div>
-			<input type="file" id="input-sprite" accept="image/png, image/jpeg">
-			<label for="input-sprite" id="label-input-sprite"><p>UPLOAD SPRITESHEET</p></label>
+		
+	</section>
+	
+	<section id="section-configuration">
+		<input type="file" id="input-sprite" accept="image/png, image/jpeg">
+		<label for="input-sprite" id="label-input-sprite"><p>UPLOAD SPRITESHEET</p></label>
+		
+		<form id="configure-sprite">
+			<div class="a">
+				<label class="config-input" for="can-animate">
+					Animate sprite
+					<input type="checkbox" id="can-animate">
+				</label>
+				
+				<input class="config-input" type="submit" value="CONFIRM">
+			</div>
 			
-			<form id="configure-sprite">
-				<div class="a">
-					<label class="config-input" for="can-animate">
-						Animate sprite
-						<input type="checkbox" id="can-animate">
-					</label>
-					
-					<input class="config-input" type="submit" value="CONFIRM">
-				</div>
+			<div class="b">
+				<p class="input-title">
+					Display size
+					<input class="info-button" type="button" value="?">
+				</p>
+
+				<p class="info" style="display: none;">
+					The size in pixels at which the image will be displayed on the canvas, the maximum number is 512px.
+				</p>
 				
-				<div class="b">
-					<p class="input-title">
-						Display size
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="0" id="sprite-size" step=".0" min="0" max="512">
+			</div>
+			
+			<div class="c">
+				<p class="input-title">
+					Frame size
+					<input class="info-button" type="button" value="?">
+				</p>
 
-					<p class="info" style="display: none;">
-						The size in pixels at which the image will be displayed on the canvas, the maximum number is 512px.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="0" id="sprite-size" step=".0" min="0" max="512">
-				</div>
+				<p class="info" style="display: none;">
+					The size in pixels of each frame of the sprite sheet, the maximum number is 256px.
+				</p>
 				
-				<div class="c">
-					<p class="input-title">
-						Frame size
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="1" id="sprite-frame-size" step=".0" min="1" max="256">
+			</div>
+			
+			<div class="d">
+				<p class="input-title">
+					Frame rate
+					<input class="info-button" type="button" value="?">
+				</p>
 
-					<p class="info" style="display: none;">
-						The size in pixels of each frame of the sprite sheet, the maximum number is 256px.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="1" id="sprite-frame-size" step=".0" min="1" max="256">
-				</div>
+				<p class="info" style="display: none;">
+					The number of frames per second of the animation, the maximum number is 60.
+				</p>
 				
-				<div class="d">
-					<p class="input-title">
-						Frame rate
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="0" id="sprite-frame-rate" step=".0" min="0" max="60">
+			</div>
+			
+			<div class="e">
+				<p class="input-title">
+					Start frame
+					<input class="info-button" type="button" value="?">
+				</p>
 
-					<p class="info" style="display: none;">
-						The number of frames per second of the animation, the maximum number is 60.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="0" id="sprite-frame-rate" step=".0" min="0" max="60">
-				</div>
+				<p class="info" style="display: none;">
+					The frame at which the animation begins<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
+				</p>
 				
-				<div class="e">
-					<p class="input-title">
-						Start frame
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="1" id="sprite-frame-start" step=".0" min="1" max="1">
+			</div>
+			
+			<div class="f">
+				<p class="input-title">
+					End frame
+					<input class="info-button" type="button" value="?">
+				</p>
 
-					<p class="info" style="display: none;">
-						The frame at which the animation begins<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="0" id="sprite-frame-start" step=".0" min="0" max="0">
-				</div>
+				<p class="info" style="display: none;">
+					The frame at which the animation ends<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
+				</p>
 				
-				<div class="f">
-					<p class="input-title">
-						End frame
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="1" id="sprite-frame-end" step=".0" min="1" max="1">
+			</div>
+			
+			<div class="g">
+				<p class="input-title">
+					Row number
+					<input class="info-button" type="button" value="?">
+				</p>
 
-					<p class="info" style="display: none;">
-						The frame at which the animation ends<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="0" id="sprite-frame-end" step=".0" min="0" max="0">
-				</div>
+				<p class="info" style="display: none;">
+					The row of the sprite sheet that will be animated<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
+				</p>
 				
-				<div class="g">
-					<p class="input-title">
-						Row number
-						<input class="info-button" type="button" value="?">
-					</p>
+				<input class="config-input input-number" type="number" value="1" id="sprite-frame-row" step=".0" min="1" max="1">
+			</div>
 
-					<p class="info" style="display: none;">
-						The row of the sprite sheet that will be animated<span class="max-frame-count">, the maximum number will be calculated after setting the frame size</span>.
-					</p>
-					
-					<input class="config-input input-number" type="number" value="0" id="sprite-frame-row" step=".0" min="0" max="0">
-				</div>
+		</form>
+	</section>
 
-			</form>
-		</div>
+	<section id="section-history">
+		<div id="history-items" style="display: none;"></div>
 	</section>
 	
 	<script src="https://leandrojofre.github.io/game-chaotic-alpha/classes/Sprite.js"></script>
