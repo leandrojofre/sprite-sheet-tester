@@ -164,6 +164,10 @@ document.querySelectorAll(".input-number").forEach(input =>
 	})
 );
 
+document.querySelectorAll(".input-title").forEach(title => 
+	title.addEventListener("wheel", (e) => e.preventDefault())
+);
+
 document.querySelectorAll(".info-button").forEach(button =>
 	button.addEventListener("mouseover", (e) => {
 		const target = e.target;
@@ -171,11 +175,22 @@ document.querySelectorAll(".info-button").forEach(button =>
 		const infoBox = brotherElementsOfTarget.find(element => element.className === "info");
 
 		infoBox.style.display = "block";
+		infoBox.style.position = "absolute";
 		infoBox.style.width = "200px";
 		infoBox.style.height = "min-content";
-		infoBox.style.overflowY = "scroll";
-		infoBox.style.left = `${target.offsetLeft}px`;
-		infoBox.style.top = `${target.offsetTop - infoBox.offsetHeight}px`;
+			
+		const offsetTransform = target.offsetLeft - infoBox.offsetLeft;
+		const infoBoxRight = infoBox.offsetLeft + infoBox.offsetWidth + offsetTransform;
+		const pageWidth = document.body.offsetWidth;
+
+		let offsetX = infoBoxRight - pageWidth;
+
+		if (infoBoxRight <= pageWidth) offsetX = 0;
+
+		infoBox.style.transform = `translate(
+			${offsetTransform - offsetX}px,
+			-${infoBox.offsetHeight}px
+		)`;
 	})
 );
 
@@ -231,6 +246,7 @@ function setHistoryItems() {
 		const $input = document.createElement("input");
 		$input.type = "button";
 		$input.value = "X";
+		$input.style.position = "absolute";
 		$input.style.cursor = "pointer";
 		$input.style.width = "min-content";
 		$input.style.height = "min-content";
@@ -247,6 +263,7 @@ function setHistoryItems() {
 		const $img = document.createElement("img");
 		$img.src = spriteObj.src;
 		$img.id = index;
+		$img.style.cursor = "copy";
 		$img.style.position = "absolute";
 		$img.style.zIndex = 0;
 

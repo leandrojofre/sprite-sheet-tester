@@ -33,6 +33,7 @@ body {
 
 	background-color: #a07a52;
 	-webkit-text-fill-color: #473524;
+	border: 5px solid #473524;
 	user-select: none;
 
 	& > * {
@@ -54,6 +55,8 @@ div {
 canvas {
 	background-color: #eadbac;
 	border: 5px solid #473524;
+	width: 512px;
+	height: 512px;
 }
 
 label, input {
@@ -167,6 +170,7 @@ input[type=submit] {
 	background-color: #c8a279;
 	border: 5px solid #473524;
 	flex-direction: row-reverse;
+	contain: content;
 }
 
 form {
@@ -260,9 +264,9 @@ form {
 }
 
 & ::-webkit-scrollbar-track {
-	background-color: #a07a52;
+	background-color: #473524;
 }
 
 & ::-webkit-scrollbar-thumb {
-	background-color: #473524;
+	background-color: #a07a52;
 }
