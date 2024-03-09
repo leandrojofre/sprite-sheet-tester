@@ -275,7 +275,7 @@ async function loadImgFromHistory(index) {
 	document.getElementById("sprite-frame-rate").value = sprite.frameSpeed;
 	document.getElementById("sprite-frame-start").value = sprite.frameStart + 1;
 	document.getElementById("sprite-frame-end").value = sprite.frameEnd;
-	document.getElementById("sprite-frame-row").value = sprite.sy + 1;
+	document.getElementById("sprite-frame-row").value = (sprite.sy / sprite.sHeight) + 1;
 	document.getElementById("can-animate").checked = sprite.animate;
 
 	setMaxNumberOfRows(sprite.sWidth);
